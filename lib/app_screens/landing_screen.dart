@@ -170,7 +170,7 @@ class _LandingScreenState extends State<LandingScreen> {
                   height: 55,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Aici vei deschide următorul ecran
+
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
