@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'dashboard_screen.dart';
+
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
 
@@ -170,11 +172,15 @@ class _LandingScreenState extends State<LandingScreen> {
                   height: 55,
                   child: ElevatedButton(
                     onPressed: () {
-
+                      Navigator.push(context,
+                          MaterialPageRoute(builder:
+                              (context) => const DashboardScreen()
+                          )
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      foregroundColor: const Color(0xFF06294B),
+                      foregroundColor: const Color(0xFF001129),
                       elevation: 8,
                       shadowColor: Colors.black.withValues(alpha: 0.30),
                       shape: RoundedRectangleBorder(
