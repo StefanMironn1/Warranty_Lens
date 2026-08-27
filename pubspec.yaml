@@ -64,6 +64,7 @@ flutter:
     - assets/images/backround_images/warranty_tablet_landscape.png
     - assets/images/backround_images/warranty_phone.png
     - assets/images/warranty_devices_photos/airpods_photo-removebg-preview.png
+    - assets/images/warranty_devices_photos/washing-machine-isolated-removebg-preview.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
