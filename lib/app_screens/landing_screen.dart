@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import 'dashboard_screen.dart';
+import '../core/app_theme.dart';
+import '../state/warranty_store.dart';
+import 'sign_in_screen.dart';
 
-class LandingScreen extends StatefulWidget {
-  const LandingScreen({super.key});
+class LandingScreen extends StatelessWidget {
+  const LandingScreen({required this.store, super.key});
 
-  @override
-  State<LandingScreen> createState() => _LandingScreenState();
-}
+  final WarrantyStore store;
 
-class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -22,228 +20,223 @@ class _LandingScreenState extends State<LandingScreen> {
         fit: StackFit.expand,
         children: [
           const WarrantyBackground(),
-
-          SafeArea(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(
-                horizontal: isTablet ? 48 : 24,
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: isTablet ? 80 : 45),
-
-                  Text(
-                    'WarrantyLens',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      fontSize: isTablet ? 52 : 40,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: -1.5,
-                    ),
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  Text(
-                    'All your warranties in one safe place',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      fontSize: isTablet ? 17 : 14,
-                      color: Colors.white.withValues(alpha: 0.75),
-                    ),
-                  ),
-
-                  const SizedBox(height: 28),
-
-                  // Containerul principal
-                  Center(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        maxWidth: 420,
-                      ),
-                      child: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
-                          color: Colors.white.withValues(alpha: 0.10),
-                          border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.20),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.20),
-                              blurRadius: 25,
-                              offset: const Offset(0, 10),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  width: 52,
-                                  height: 52,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: Colors.cyanAccent.withValues(
-                                      alpha: 0.15,
-                                    ),
-                                  ),
-                                  child: const Icon(
-                                    Icons.verified_user_outlined,
-                                    color: Colors.cyanAccent,
-                                    size: 28,
-                                  ),
-                                ),
-
-                                const SizedBox(width: 14),
-
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Protect your purchases',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 3),
-                                      Text(
-                                        'Never lose a receipt or warranty again.',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 12,
-                                          color: Colors.white.withValues(
-                                            alpha: 0.65,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            const SizedBox(height: 20),
-
-                            Row(
-                              children: const [
-                                Expanded(
-                                  child: _SmallFeature(
-                                    icon: Icons.document_scanner_outlined,
-                                    text: 'Scan receipts',
-                                  ),
-                                ),
-                                SizedBox(width: 12),
-                                Expanded(
-                                  child: _SmallFeature(
-                                    icon: Icons.notifications_none_rounded,
-                                    text: 'Expiry alerts',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 22),
+          DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withValues(alpha: 0.08),
+                  const Color(0xFF001124).withValues(alpha: 0.35),
+                  const Color(0xFF001124).withValues(alpha: 0.92),
                 ],
               ),
             ),
           ),
-          Positioned(
-            left:  isTablet ? 400: 24,
-            right: isTablet ? 400  : 24,
-            bottom: isTablet ? 70 : 70,
-             child:  ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 300),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 55,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder:
-                              (context) => const DashboardScreen()
-                          )
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: const Color(0xFF001129),
-                      elevation: 8,
-                      shadowColor: Colors.black.withValues(alpha: 0.30),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(
+                  isTablet ? 48 : 24,
+                  isTablet ? 44 : 28,
+                  isTablet ? 48 : 24,
+                  28,
+                ),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 480),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 68,
+                        height: 68,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          gradient: const LinearGradient(
+                            colors: [AppColors.primary, AppColors.primaryBlue],
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.primary.withValues(alpha: 0.35),
+                              blurRadius: 25,
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.verified_user_rounded,
+                          color: Color(0xFF001526),
+                          size: 37,
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      'Get Started',
-                      style: GoogleFonts.poppins(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
+                      const SizedBox(height: 20),
+                      Text(
+                        'WarrantyLens',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                              fontSize: isTablet ? 48 : 39,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: -1.7,
+                            ),
                       ),
-                    ),
+                      const SizedBox(height: 9),
+                      Text(
+                        'Every purchase protected. Every receipt in reach.',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Colors.white.withValues(alpha: 0.74),
+                              height: 1.5,
+                            ),
+                      ),
+                      SizedBox(height: isTablet ? 42 : 30),
+                      const _FeaturePanel(),
+                      const SizedBox(height: 30),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => SignInScreen(store: store),
+                            ),
+                          ),
+                          child: const Text('Get started'),
+                        ),
+                      ),
+                      const SizedBox(height: 13),
+                      Text(
+                        'Local-first demo • No account required',
+                        style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                              color: Colors.white.withValues(alpha: 0.58),
+                            ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-          )
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-
-class _SmallFeature extends StatelessWidget {
-  final IconData icon;
-  final String text;
-
-  const _SmallFeature({
-    required this.icon,
-    required this.text,
-  });
+class _FeaturePanel extends StatelessWidget {
+  const _FeaturePanel();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 11,
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(26),
+        color: Colors.white.withValues(alpha: 0.09),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.22),
+            blurRadius: 28,
+            offset: const Offset(0, 12),
+          ),
+        ],
       ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 54,
+                height: 54,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(17),
+                  color: AppColors.primary.withValues(alpha: 0.14),
+                ),
+                child: const Icon(
+                  Icons.shield_outlined,
+                  color: AppColors.primary,
+                  size: 29,
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Protect your purchases',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      'Know exactly what is covered and for how long.',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Colors.white.withValues(alpha: 0.62),
+                            height: 1.4,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Row(
+            children: const [
+              Expanded(
+                child: _SmallFeature(
+                  icon: Icons.document_scanner_outlined,
+                  text: 'Receipt scan',
+                ),
+              ),
+              SizedBox(width: 11),
+              Expanded(
+                child: _SmallFeature(
+                  icon: Icons.notifications_none_rounded,
+                  text: 'Expiry alerts',
+                ),
+              ),
+              SizedBox(width: 11),
+              Expanded(
+                child: _SmallFeature(
+                  icon: Icons.insights_outlined,
+                  text: 'Insights',
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SmallFeature extends StatelessWidget {
+  const _SmallFeature({required this.icon, required this.text});
+
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 11),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        color: Colors.white.withValues(alpha: 0.08),
+        color: Colors.white.withValues(alpha: 0.07),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
         children: [
-          Icon(
-            icon,
-            size: 18,
-            color: Colors.cyanAccent,
-          ),
-          const SizedBox(width: 7),
-          Flexible(
+          Icon(icon, size: 19, color: AppColors.primary),
+          const SizedBox(height: 6),
+          FittedBox(
+            fit: BoxFit.scaleDown,
             child: Text(
               text,
               maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.poppins(
-                fontSize: 11,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
             ),
           ),
         ],
@@ -261,26 +254,17 @@ class WarrantyBackground extends StatelessWidget {
     final isTablet = size.shortestSide >= 600;
     final isLandscape = size.width > size.height;
 
-    final String background;
+    final background = !isTablet
+        ? 'assets/images/backround_images/warranty_phone.png'
+        : isLandscape
+            ? 'assets/images/backround_images/warranty_tablet_landscape.png'
+            : 'assets/images/backround_images/warranty_tablet_portrait.png';
 
-    if (!isTablet) {
-      background =
-      'assets/images/backround_images/warranty_phone.png';
-    } else if (isLandscape) {
-      background =
-      'assets/images/backround_images/warranty_tablet_landscape.png';
-    } else {
-      background =
-      'assets/images/backround_images/warranty_tablet_portrait.png';
-    }
-
-    return Positioned.fill(
-      child: Image.asset(
-        background,
-        fit: BoxFit.cover,
-        alignment: Alignment.bottomCenter,
-        filterQuality: FilterQuality.high,
-      ),
+    return Image.asset(
+      background,
+      fit: BoxFit.cover,
+      alignment: Alignment.bottomCenter,
+      filterQuality: FilterQuality.high,
     );
   }
 }

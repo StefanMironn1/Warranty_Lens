@@ -1,30 +1,69 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:warranty_lens/main.dart';
+import 'package:warranty_lens/models/warranty_item.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('WarrantyItem', () {
+    test('calculates expiry at the end of short months', () {
+      final item = WarrantyItem(
+        id: '1',
+        productName: 'Camera',
+        category: 'Camera',
+        brand: 'Sony',
+        retailer: 'Store',
+        purchaseDate: DateTime(2025, 1, 31),
+        warrantyMonths: 1,
+        price: 500,
+        createdAt: DateTime(2025, 1, 31),
+      );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      expect(item.expiryDate, DateTime(2025, 2, 28));
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    test('returns active, expiring and expired states', () {
+      final item = WarrantyItem(
+        id: '2',
+        productName: 'Laptop',
+        category: 'Computer',
+        brand: 'Lenovo',
+        retailer: 'Store',
+        purchaseDate: DateTime(2025, 1, 1),
+        warrantyMonths: 12,
+        price: 1000,
+        reminderDays: 30,
+        createdAt: DateTime(2025, 1, 1),
+      );
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      expect(item.statusAt(DateTime(2025, 6, 1)), WarrantyStatus.active);
+      expect(
+        item.statusAt(DateTime(2025, 12, 15)),
+        WarrantyStatus.expiringSoon,
+      );
+      expect(item.statusAt(DateTime(2026, 1, 2)), WarrantyStatus.expired);
+    });
+
+    test('round-trips through JSON', () {
+      final original = WarrantyItem(
+        id: '3',
+        productName: 'Headphones',
+        category: 'Audio',
+        brand: 'Bose',
+        retailer: 'Online store',
+        serialNumber: 'ABC123',
+        purchaseDate: DateTime(2026, 4, 4),
+        warrantyMonths: 24,
+        price: 299.99,
+        receiptFileName: 'receipt.pdf',
+        isFavorite: true,
+        createdAt: DateTime(2026, 4, 4),
+      );
+
+      final decoded = WarrantyItem.fromJson(original.toJson());
+
+      expect(decoded.productName, original.productName);
+      expect(decoded.serialNumber, original.serialNumber);
+      expect(decoded.price, original.price);
+      expect(decoded.isFavorite, isTrue);
+      expect(decoded.expiryDate, original.expiryDate);
+    });
   });
 }
