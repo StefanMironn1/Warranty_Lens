@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071B31"/>
+      <stop offset="0.55" stop-color="#082844"/>
+      <stop offset="1" stop-color="#171F54"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#54F0FF"/>
+      <stop offset="0.52" stop-color="#22CFEA"/>
+      <stop offset="1" stop-color="#3186FF"/>
+    </linearGradient>
+    <radialGradient id="lens" cx="38%" cy="32%" r="70%">
+      <stop offset="0" stop-color="#A9F8FF"/>
+      <stop offset="0.48" stop-color="#2EDAF1"/>
+      <stop offset="1" stop-color="#1577E8"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="24"/>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" rx="220" fill="url(#background)"/>
+  <circle cx="780" cy="220" r="220" fill="#6858E8" opacity="0.14"/>
+  <circle cx="205" cy="820" r="275" fill="#13D5EF" opacity="0.1"/>
+  <path d="M512 157 790 258v220c0 190-109 338-278 407-169-69-278-217-278-407V258Z"
+        fill="#2EDAF1" opacity="0.22" filter="url(#glow)"/>
+  <path d="M512 157 790 258v220c0 190-109 338-278 407-169-69-278-217-278-407V258Z"
+        fill="none" stroke="url(#shield)" stroke-width="58" stroke-linejoin="round"/>
+  <circle cx="484" cy="480" r="150" fill="url(#lens)" stroke="#EAFDFF" stroke-width="36"/>
+  <path d="m590 590 132 132" fill="none" stroke="#EAFDFF" stroke-width="62" stroke-linecap="round"/>
+  <path d="m410 477 54 54 104-116" fill="none" stroke="#06243C" stroke-width="43" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M354 266c75-42 154-54 237-32" fill="none" stroke="#EAFEFF" stroke-width="25" stroke-linecap="round" opacity="0.58"/>
+</svg>
